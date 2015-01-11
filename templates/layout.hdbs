@@ -1,0 +1,13 @@
+<header>
+  <span class="logo"></span>
+  <h3>{{setting "name"}}</h3>
+</header>
+<section class="navigation">
+  <ul class="nav nav-pills">
+    <li class="summary active"><a class="summary">Summary</a></li>
+    <li class="goodcsat"><a class="goodcsat">Good</a></li>
+    <li class="badcsat"><a class="badcsat">Bad</a></li>
+  </ul>
+  <div class="loading_spinner">{{spinner}}</div>
+</section>
+<section class="main" data-main></section>

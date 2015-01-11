@@ -1,0 +1,21 @@
+.loading {
+  opacity: 0.5;
+}
+
+.loading_spinner {
+  display: none;
+}
+
+.navigation {
+  border-bottom: 1px dotted #cccccc;
+  margin-bottom: 8px;
+
+  .nav {
+    list-style: none;
+    margin-bottom: 14px;
+
+    li {
+      margin-right: 8px;
+    }
+  }
+}

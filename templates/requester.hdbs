@@ -1,0 +1,5 @@
+<ul>
+  {{#each results}}
+  <li><h3>{{url}}</li>
+  {{/each}}
+</ul>

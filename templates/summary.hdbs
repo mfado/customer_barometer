@@ -1,0 +1,9 @@
+This is the summary, yey!
+<br/><br/>
+Number of good: {{good}}
+<br>
+Number of good with comment: {{goodwithcomment}}
+<br>
+Number of bad: {{bad}}
+<br>
+Number of bad with comment: {{badwithcomment}}
