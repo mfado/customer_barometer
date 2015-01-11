@@ -1,12 +1,5 @@
 (function() {
 
-    var INSTALLATIONS_URI = '/api/v2/apps/installations.json',
-      INSTALLATION_URI  = '/api/v2/apps/installations/%@',
-      UPLOADS_URI       = '/api/v2/apps/uploads',
-      INSTALL_URI       = '/apps/installations',
-      STATUS_URI        = '/api/v2/apps/job_statuses/%@.json',
-      APPS_URI          = '/api/v2/apps.json';    
-
     return {
 
         events: {
@@ -30,7 +23,7 @@
 
         init: function() {
           this.showSpinner(true);
-
+          console.log('test');
           var email = this.ticket().requester().email(); 
           email="enduser01@mailinator.com";
           var objSummary = {};
