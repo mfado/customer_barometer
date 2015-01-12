@@ -11,7 +11,7 @@
         },
 
         requests: {
-            getGood: function(email,type) {
+            getCSAT: function(email,type) {
                 return {
                     url: '/api/v2/search.json?query=type:ticket%20satisfaction:'+type+'%20requester:'+email+'',
                     type:'GET'
@@ -23,44 +23,31 @@
 
         init: function() {
           this.showSpinner(true);
-          var email = this.ticket().requester().email(); 
-          email="enduser01@mailinator.com";
+
+          var email = this.ticket().requester().email();         
           var objSummary = {};
 
-          /*
-          this.ajax('getGood', email, 'good')
-            .done(function(data){
-              objSummary.good=data.count;
-            });
+          email="enduser01@mailinator.com";    
+          var promise2 = this.promise(function(done, fail) { fail(); });
 
-          this.ajax('getGood', email, 'goodwithcomment')
-            .done(function(data){
-              objSummary.goodwithcomment=data.count;
-            });  
+          var goodP = this.ajax('getCSAT', email, 'good'),            
+              badP = this.ajax('getCSAT', email, 'bad'),
+              badCommentP = this.ajax('getCSAT', email, 'badwithcomment'),
+              goodCommentP = this.ajax('getCSAT', email, 'goodwithcomment');              
 
-          this.ajax('getGood', email, 'bad')
-            .done(function(data){
-              objSummary.bad=data.count;
-            }); 
-
-          this.ajax('getGood', email, 'badwithcomment')
-            .done(function(data){
-              objSummary.badwithcomment=data.count;
+          this.when(goodP,badP,badCommentP,goodCommentP).then(
+            function(data,data2,data3,data4) {
+              objSummary.good=data[0].count;
+              objSummary.bad=data2[0].count;
+              objSummary.badwithcomment=data3[0].count;
+              objSummary.goodwithcomment=data4[0].count;
+              console.log(objSummary);
               this.showSummary(objSummary);
-            });  
-            */
-
-            var requesterPromise = this.ajax('getGood', email, 'good'); 
-            var requesterPromise2 = this.ajax('getGood', email, 'bad');              
-
-            this.when(requesterPromise,requesterPromise2).then(function(data,data2) {
-                //console.log.bind(console, requesterPromise.data);
-                console.log(data);
-                console.log(data[0].count,data2[0].count);
+            }.bind(this),
+            function() {
+              console.log('Failure');
             }.bind(this));
-
         },   
-
 
         buildCount: function(count,type) {
           var summary = {
@@ -68,12 +55,10 @@
             count: count
           };      
           console.log(summary);
-          this.showSummary(summary);
-          
+          this.showSummary(summary);          
         },
 
         showSummary: function(data) {
-          //console.log(data.count);
           this.highlightPill('summary');
           console.log(data);
           this.switchTo('summary',data);
@@ -93,7 +78,6 @@
 
         highlightPill: function(itemClass) {
           itemClass = '.' + itemClass;
-
           this.$('.nav-pills li').removeClass('active');
           this.$('.nav-pills li' + itemClass).addClass('active');
         }        
