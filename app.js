@@ -23,11 +23,11 @@
 
         init: function() {
           this.showSpinner(true);
-          console.log('test');
           var email = this.ticket().requester().email(); 
           email="enduser01@mailinator.com";
           var objSummary = {};
 
+          /*
           this.ajax('getGood', email, 'good')
             .done(function(data){
               objSummary.good=data.count;
@@ -47,7 +47,18 @@
             .done(function(data){
               objSummary.badwithcomment=data.count;
               this.showSummary(objSummary);
-            });                
+            });  
+            */
+
+            var requesterPromise = this.ajax('getGood', email, 'good'); 
+            var requesterPromise2 = this.ajax('getGood', email, 'bad');              
+
+            this.when(requesterPromise,requesterPromise2).then(function(data,data2) {
+                //console.log.bind(console, requesterPromise.data);
+                console.log(data);
+                console.log(data[0].count,data2[0].count);
+            }.bind(this));
+
         },   
 
 
